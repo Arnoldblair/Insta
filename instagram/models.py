@@ -68,4 +68,27 @@ class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE, primary_key=True)
     followers = models.ManyToManyField('Profile',related_name="profile_followers",blank=True,default=[0])
     following = models.ManyToManyField('Profile',related_name="profile_following",blank=True,default=[0])
+
+
+    def __str__(self):
+        return self.user.username
+
+    def save_profile(self):
+        self.save()
+    def delete_profile(self):
+        self.delete()
+    @classmethod
+    def search_profile(cls,search_term):
+        profiles = cls.objects.filter(user__icontains=search_term)
+        return profiles    
+        
+
+
+class Image(models.Model):
+    image = CloudinaryField('image')
+    owner = models.ForeignKey(User, null=True, on_delete=models.CASCADE,related_name="user_name")
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE,null=True)
+    image_name = models.CharField(max_length =30)
+    caption = models.CharField(max_length =50)
+    post_date = models.DateTimeField(auto_now_add=True)
             
