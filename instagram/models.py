@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, User
 #Create your models here.
 
 class MyUserManager(BaseUserManager):
@@ -24,12 +24,13 @@ class MyUserManager(BaseUserManager):
 
     def create_superuser(self,email,company_name,phone,password=None):
         user=self.create_user(
-            email=email,
+            email=self.normalize_email(email),
             company_name=company_name,
             phone=phone,
             password=password
         )   
         user.is_admin=True
+        user.is_staff=True
         user.is_superuser=True
         user.save(using=self._db) 
 
@@ -59,3 +60,12 @@ class MyUser(AbstractBaseUser):
 
     def has_module_perms(self,app_label):
         return True  
+
+
+class Profile(models.Model):
+    bio = models.CharField(max_length =200)
+    profile_pic = CloudinaryField('image')
+    user = models.OneToOneField(User,on_delete=models.CASCADE, primary_key=True)
+    followers = models.ManyToManyField('Profile',related_name="profile_followers",blank=True,default=[0])
+    following = models.ManyToManyField('Profile',related_name="profile_following",blank=True,default=[0])
+            
