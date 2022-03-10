@@ -12,10 +12,25 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+from pickle import TRUE
+from decouple import config,Csv
+
+
+# cloudinary
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+# setup cloudinary credentials for django-cloudinary
+cloudinary.config(
+  cloud_name = "dnlogkap2",
+  api_key = "445484296461758",
+  api_secret = "y0F_z0Vg55vo4Me7vlRrOf0ZKLY",
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -24,7 +39,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-iirt^pqys54i^u*+0zrawfenl2cb!#$4!ormm+!$--%f+v65es'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = TRUE
 
 ALLOWED_HOSTS = []
 
@@ -38,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_registration',
     'app.apps.AppConfig',
     'bootstrap5',
     'cloudinary',
