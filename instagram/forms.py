@@ -1,30 +1,23 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate
-from instagram.models import MyUser
+from .models import Profile,Image,Comment,Like
+from django.contrib.auth.models import User
 
-class UserRegistrationForm(UserCreationForm):
+class UpdateProfileForm(forms.ModelForm):
     class Meta:
-        model=MyUser
-        fields=('email', 'company_name', 'phone', 'password1', 'password2')
+        model = Profile
+        exclude = ['followers','following','user']
 
-
-
-class UserLoginForm(forms.ModelForm):
-    password=forms.CharField(label="password",widget=forms.PasswordInput)
-
-
+class PostImage(forms.ModelForm):
     class Meta:
-        model=MyUser
-        fields=('email', 'password')
+        model = Image
+        exclude = ['owner','post_date','profile']
 
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        exclude = ['user','image','posted_on']
 
-    def clean(self):
-        if self.is_valid():
-            email=self.cleaned_data['email']
-            password=self.cleaned_data['password']
-
-
-            if not authenticate(email=email, password=password):
-                raise forms.ValidationError("invalid credential")
-
+class UpdateImage(forms.ModelForm):
+    class Meta:
+        model = Image
+        exclude = ['image','owner','profile','post_date'] 
