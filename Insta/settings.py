@@ -10,8 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from distutils import config
+import os
 from pathlib import Path
-
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,6 +32,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+cloudinary.config(
+  cloud_name = "dnlogkap2",
+  api_key = "445484296461758",
+  api_secret = "y0F_z0Vg55vo4Me7vlRrOf0ZKLY",
+)
 
 # Application definition
 
@@ -40,7 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'instagram',
     'cloudinary',
-    'bootstrap3'
+    'bootstrap3',
+    'tinymce'
 ]
 
 MIDDLEWARE = [
@@ -111,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
@@ -122,7 +132,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 

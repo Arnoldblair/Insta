@@ -10,7 +10,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 
-def home(request):
+def index(request):
     images = Image.objects.all().order_by('-post_date')
     users = User.objects.all()  
     current = request.user
@@ -50,7 +50,7 @@ def update_profile(request,id):
             profile = form.save(commit=False)
             profile.user_id=id
             profile.save()
-            return redirect(home)
+            return redirect(index)
     else:
         form = UpdateProfileForm()
     return render(request,'profile/update_profile.html',{'user':user,'form':form})      
@@ -91,7 +91,7 @@ def new_image(request,id):
             image.owner = current_user
             image.profile = current_profile
             image.save()
-        return redirect(home)
+        return redirect(index)
     else:
         form = PostImage()
         
@@ -117,7 +117,7 @@ def comment(request,c_id):
             comment.image = current_image
             comment.user = current_user   
             comment.save()
-            return redirect(home)
+            return redirect(index)
     else:
         form = CommentForm()
         
@@ -136,7 +136,7 @@ def follow(request,user_id):
     to_follow = Profile.objects.get(user_id=user_id)
     new_profile = Profile(user_id=to_follow,followers=current_user.id,following=to_follow)
     new_profile.save()
-    return redirect(home)  
+    return redirect(index)  
 
 @login_required(login_url='/accounts/login/')
 def update_image(request,id):
@@ -148,7 +148,7 @@ def update_image(request,id):
             image = form.save(commit=False)
             image.owner = current_user
             # image.update_image(current,new)
-            return redirect(home)
+            return redirect(index)
     else:
         form = UpdateImage()
 
