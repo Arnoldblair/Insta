@@ -1,12 +1,13 @@
+from base64 import urlsafe_b64decode
 from importlib.resources import path
-from django.conf.urls import url
+from django import urls
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns=[
-    #url('^$',views.welcome,name = 'welcome'),
-    path('',views.home,name='home'),
+
+    path('',views.home, name='home'),
     path('profile/(\d+)',views.profile,name='profile'),
     path('profile/update/(\d+)',views.update_profile,name='update_profile'),
     path('no profile/(\d+)',views.no_profile),

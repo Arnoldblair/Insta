@@ -13,6 +13,8 @@ def welcome(request):
     return HttpResponse('Welcome to Instagram')
 
 @login_required(login_url='/accounts/login/')
+
+
 def home(request):
     images = Image.objects.all().order_by('-post_date')
     users = User.objects.all()  
