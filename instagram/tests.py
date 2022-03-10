@@ -5,7 +5,7 @@ from .models import Image,Like,Comment,Profile
 # Create your tests here.
 class CommentTestClass(TestCase):
     def setUp(self):
-        self.new_user = User.objects.create_user(user='edwin',password='password123')
+        self.new_user = User.objects.create_user(user='blair',password='admin123')
         self.comment = Comment(comment='Test Comment',user=self.new_user,post=1)
 
     def test_instance(self):
@@ -23,7 +23,7 @@ class ImageTestClass(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.user.objects.create_user('edwin')
+        cls.user.objects.create_user('blair')
         cls.new_profile = Profile (profile_pic='')    
         cls.new_image = Image(my_image='', caption='hello', profile=cls.new_profile)
 
@@ -42,7 +42,7 @@ class ImageTestClass(TestCase):
 
 class Intagram_TestCases(TestCase):
     def setUp(self):
-        self.user1= User(id=1,username='edwin',email='edwin.kithinji@student.moringaschool.com',password='12244')
+        self.user1= User(id=1,username='blair',email='arnoldblair.munene@student.moringaschool.com',password='12244')
         self.user1.save()
         self.profile = Profile(user_id=1,bio='hello world',profile_pic='')
         self.profile.save_profile()
