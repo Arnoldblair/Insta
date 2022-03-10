@@ -72,7 +72,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Insta.wsgi.application'
 
 
-AUTH_USER_MODEL="instagram.MyUser"
+
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
